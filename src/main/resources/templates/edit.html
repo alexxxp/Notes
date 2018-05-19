@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit note</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+
+<form action="/save" method="post">
+    <fieldset>
+        <legend>Edit note</legend>
+
+        <p>
+            Id: <input name="id" th:value="${note.id}" type="text"/><br/>
+        </p>
+        <p>
+            Name: <input name="name" th:value="${note.name}" type="text"/><br/>
+        </p>
+        <p>
+            Content: <textarea name="content" id="content" th:text="${note.content}" type="text"/><br/>
+        </p>
+        <p>
+            isCompleted: <input name="isComplete" th:value="${note.isComplete}" type="text"/><br/>
+        </p>
+        <p>
+            createDate: <input name="createDate" th:value="${#dates.format(note.createDate, 'dd MMMMMMMMMM, yyyy HH:mm:ss')}" type="text"/><br/>
+        </p>
+        <p>
+            <input type="submit" value="Save changes"/>
+        </p>
+        <p>
+            <button formaction="/delete">Delete note</button>
+        </p>
+    </fieldset>
+</form>
+
+<p>
+    <a href="/">Back to main page.</a>
+</p>
+</body>
+</html>

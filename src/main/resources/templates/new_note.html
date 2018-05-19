@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit note</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+
+<form action="/newNote" method="post">
+    <fieldset>
+        <legend>Make new note</legend>
+
+        <p>
+            Name: <input name="name" type="text"/><br/>
+        </p>
+        <p>
+            Content: <textarea name="content" id="content" type="text"/><br/>
+        </p>
+        <p>
+            isCompleted: <input name="isComplete" type="text"/> Possible values: true/false<br/>
+        </p>
+        <p>
+            <input type="submit" value="Make new note"/>
+        </p>
+    </fieldset>
+</form>
+<p>
+    <a href="/">Back to main page.</a>
+</p>
+</body>
+</html>
