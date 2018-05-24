@@ -87,8 +87,7 @@ public class MainController {
     public @ResponseBody String save(@RequestParam Long id,
                      @RequestParam String name,
                      @RequestParam String content,
-                     @RequestParam String isComplete,
-                     @RequestParam String createDate) {
+                     @RequestParam String isComplete) {
 
         Note note = userRepository.findOne(id);
 
