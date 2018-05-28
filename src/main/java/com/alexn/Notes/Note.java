@@ -8,21 +8,16 @@ import java.util.Date;
 @Entity // This tells Hibernate to make a table out of this class
 public class Note {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
     @Lob
-    @Column(name = "content")
     private String content;
 
-    @Column(name = "isComplete")
     public boolean isComplete;
 
-    @Column(name = "createDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 

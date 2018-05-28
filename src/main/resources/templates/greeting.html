@@ -63,7 +63,7 @@
             <tr th:each="note : ${notes}">
                 <td th:text="${note.id}"></td>
                 <td th:text="${note.name}"></td>
-                <td th:text="${note.content}" onclick="edit()"></td>
+                <td th:text="${note.content}"></td>
                 <td th:text="${note.isComplete}"></td>
                 <td th:text="${#dates.format(note.createDate, 'dd MMMMMMMMMM, yyyy HH:mm:ss')}"></td>
                 <td >
