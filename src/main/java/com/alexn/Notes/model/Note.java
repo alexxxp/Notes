@@ -1,6 +1,4 @@
-package com.alexn.Notes;
-
-import org.hibernate.annotations.Type;
+package com.alexn.Notes.model;
 
 import javax.persistence.*;
 import java.util.Date;

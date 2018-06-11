@@ -1,8 +1,7 @@
 package com.alexn.Notes.controllers;
 
-import com.alexn.Notes.Note;
-import com.alexn.Notes.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alexn.Notes.model.Note;
+import com.alexn.Notes.service.NoteService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,11 +15,14 @@ import java.util.Date;
 @Controller
 @RequestMapping(path = "/")
 public class MainController {
-    @Autowired
-    private UserRepository userRepository;
+    private NoteService noteService;
     private int PAGE_SIZE = 10;
     private String[] notesStates = {"All","Incomplete", "Complete"};
     private String[] dateOrders = {"New first", "Old first"};
+
+    public MainController(NoteService noteService) {
+        this.noteService = noteService;
+    }
 
     @GetMapping(path = "/")
     public ModelAndView example(@RequestParam(required = false) Integer page,
@@ -44,11 +46,11 @@ public class MainController {
 
         Page<Note> notes = null;
         if (selectedNotesState.equals("All"))
-            notes = userRepository.findAll(pageable);
+            notes = noteService.findAll(pageable);
         else if (selectedNotesState.equals("Incomplete"))
-            notes = userRepository.findByisComplete(false, pageable);
+            notes = noteService.findByisComplete(false, pageable);
         else if (selectedNotesState.equals("Complete"))
-            notes = userRepository.findByisComplete(true, pageable);
+            notes = noteService.findByisComplete(true, pageable);
 
         ModelAndView modelAndView = new ModelAndView("greeting");
         modelAndView.addObject("notes", notes);
@@ -64,9 +66,9 @@ public class MainController {
     @PostMapping(path = "/delete")
     public @ResponseBody
     String delete(@RequestParam Long id) {
-        Note note = userRepository.findOne(id);
+        Note note = noteService.findOne(id);
         if (note != null) {
-            userRepository.delete(note);
+            noteService.delete(note);
             return "Successfully deleted";
         }
         return "Note doesn't exist";
@@ -74,7 +76,7 @@ public class MainController {
 
     @GetMapping(path = "/edit")
     public ModelAndView edit(@RequestParam Long id) {
-        Note note = userRepository.findOne(id);
+        Note note = noteService.findOne(id);
         if (note != null) {
             ModelAndView modelAndView = new ModelAndView("edit");
             modelAndView.addObject("note", note);
@@ -89,7 +91,7 @@ public class MainController {
                      @RequestParam String content,
                      @RequestParam String isComplete) {
 
-        Note note = userRepository.findOne(id);
+        Note note = noteService.findOne(id);
 
         if (note != null) {
             if (!name.equals(note.getName()))
@@ -99,7 +101,7 @@ public class MainController {
             String prevIsComplete = String.valueOf(note.isComplete);
             if (!isComplete.equals(prevIsComplete))
                 note.setComplete(Boolean.valueOf(isComplete));
-            userRepository.save(note);
+            noteService.save(note);
             return "Saved";
         }
         return "Not found";
@@ -120,7 +122,7 @@ public class MainController {
         note.setContent(content);
         note.setComplete(Boolean.valueOf(isComplete));
         note.setCreateDate(new Date());
-        userRepository.save(note);
+        noteService.save(note);
         return "Saved";
     }
 }

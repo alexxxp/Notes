@@ -1,7 +1,7 @@
 package com.alexn.Notes.repository;
 
 
-import com.alexn.Notes.Note;
+import com.alexn.Notes.model.Note;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
